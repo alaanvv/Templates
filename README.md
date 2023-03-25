@@ -3,5 +3,5 @@ To download a separated subdirectory via terminal you will need **[SVN](https://
 Use the following command to download a boilerplate:
 
 ``` bash
-svn export https://github.com/alaanvv/Boilerplates/trunk/<BOILERPLATE NAME>
+svn export https://github.com/alaanvv/Boilerplates/trunk/<BOILERPLATE NAME> --force .
 ```
