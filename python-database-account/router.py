@@ -2,7 +2,7 @@ from flask import request
 from database import Database
 from valid_pwd import validate
 
-db = Database('localhost', 3306, 'root', 'databse')
+db = Database('localhost', 3306, 'root', 'database')
 
 def Router(app):  
   @app.route('/')
