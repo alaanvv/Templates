@@ -2,7 +2,7 @@ from flask import request
 from database import Database
 from valid_pwd import validate
 
-db = Database('localhost', 3306, 'root', 'filepedia')
+db = Database('localhost', 3306, 'root', 'databse')
 
 def Router(app):  
   @app.route('/')
