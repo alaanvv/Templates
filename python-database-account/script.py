@@ -3,7 +3,7 @@ from flask import Flask
 from router import Router
 
 # App
-app = Flask('Filepedia')
+app = Flask('AppName')
 Router(app)
 
 app.run(port=667)
