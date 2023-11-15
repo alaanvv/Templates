@@ -1,0 +1,12 @@
+{
+  "name": "verse-shop",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm start ."
+  },
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1"
+  }
+}
