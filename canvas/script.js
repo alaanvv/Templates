@@ -20,8 +20,9 @@ function line(x1, y1, x2, y2, c) {
 
   const x_per_y = x_size / y_size
 
-  for (let x = x1; x !== x1 + x_step * x_size; x += x_step) {
-    let y = Math.round(y1 + (x - x1) / x_per_y * y_step)
+  let y
+  for (let x = x1; x !== x1 + x_step * x_size || y !== y1 + y_step * y_size; x += x_step) {
+    y = Math.round(y1 + (x - x1) / x_per_y * y_step)
     
     for (let y_streak = 0; y_streak < 1 / x_per_y; y_streak++) {
       dot(x, y, c)
