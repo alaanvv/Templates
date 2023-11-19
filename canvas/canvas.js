@@ -8,14 +8,22 @@ const ctx = canvas.getContext('2d')
 // ---
 
 function dot(x, y, c) {
-  if (isNaN(x) || isNaN(y)) return console.log('Something is NaN')
+  if (isNaN(x) || x === Infinity || typeof x !== 'number') throw `Invalid "x" value in "dot" function: ${x} ${typeof x}`
+  if (isNaN(y) || y === Infinity || typeof y !== 'number') throw `Invalid "y" value in "dot" function: ${y} ${typeof y}`
+
+  x = Math.round(x)
+  y = Math.round(y)
    
   ctx.fillStyle = c
   ctx.fillRect(x, y, 1, 1)
 }
 
 function line(x1, y1, x2, y2, c) {
-  if (isNaN(x1) || isNaN(y1) || isNaN(x2) || isNaN(y2)) return console.log('Something is NaN')
+  if (isNaN(x1) || x1 === Infinity || typeof x1 !== 'number') throw `Invalid "x1" value in "dot" function: ${x1} ${typeof x1}`
+  if (isNaN(y1) || y1 === Infinity || typeof y1 !== 'number') throw `Invalid "y1" value in "dot" function: ${y1} ${typeof y1}`
+  if (isNaN(x2) || x2 === Infinity || typeof x2 !== 'number') throw `Invalid "x2" value in "dot" function: ${x2} ${typeof x2}`
+  if (isNaN(y2) || y2 === Infinity || typeof y2 !== 'number') throw `Invalid "y2" value in "dot" function: ${y2} ${typeof y2}`
+
   x1 = Math.round(x1)
   y1 = Math.round(y1)
   x2 = Math.round(x2)
@@ -50,14 +58,15 @@ function line(x1, y1, x2, y2, c) {
 }
 
 function rect(x, y, w, h, c) {
+  if (isNaN(x) || x === Infinity || typeof x !== 'number') throw `Invalid "x" value in "dot" function: ${x} ${typeof x}`
+  if (isNaN(y) || y === Infinity || typeof y !== 'number') throw `Invalid "y" value in "dot" function: ${y} ${typeof y}`
   if (w === 0 || h === 0) return
-  if (isNaN(x) || isNaN(y) || isNaN(w) || isNaN(h)) return console.log('Something is NaN')
 
   for (let current_x = x; current_x - x < w; current_x++)
     line(current_x, y, current_x, y + h - 1, c)
 }
 
 function clear() {
-  ctx.fillStyle = 'black'
+  ctx.fillStyle = '#000'
   ctx.fillRect(0, 0, canvas.width, canvas.height)
 }
