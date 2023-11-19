@@ -50,6 +50,7 @@ function line(x1, y1, x2, y2, c) {
 }
 
 function rect(x, y, w, h, c) {
+  if (w === 0 || h === 0) return
   if (isNaN(x) || isNaN(y) || isNaN(w) || isNaN(h)) return console.log('Something is NaN')
 
   for (let current_x = x; current_x - x < w; current_x++)
