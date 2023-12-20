@@ -4,7 +4,6 @@
 #define MIN(x, y) (x < y ? x : y)
 #define AMAX(x, y) (abs(x) > abs(y) ? abs(x) : abs(y))
 #define MAX(x, y) (x > y ? x : y)
-#define CLAMP(x, max, min) (MIN(MAX(x, max), min))
 
 typedef char     c8;
 typedef float    f32;
