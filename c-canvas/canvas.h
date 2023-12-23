@@ -75,7 +75,7 @@ void canvas_triangle(Canvas canvas, Point v1, Point v2, Point v3) {
   canvas_line(canvas, v3, v1);
 }
 
-void canvas_fill_triangle_scanline(Canvas canvas, Point v1, Point v2, Point v3) {
+void canvas_fill_triangle(Canvas canvas, Point v1, Point v2, Point v3) {
   void swap(Point v1, Point v2) {
     Point temp;
     temp[0] = v1[0]; temp[1] = v1[1];
@@ -128,7 +128,6 @@ void canvas_fill_triangle_scanline(Canvas canvas, Point v1, Point v2, Point v3) 
 
   if (v1[1] == v2[1]) fill(v1, v2, v3, 1);
   else if (v2[1] == v3[1]) fill(v1, v2, v3, 0);
-  return;
   else {
     Point v4;
     v4[1] = v2[1];
