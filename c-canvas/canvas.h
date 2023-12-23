@@ -2,8 +2,8 @@
 #include <math.h>
 
 #define MIN(x, y) (x < y ? x : y)
-#define AMAX(x, y) (abs(x) > abs(y) ? abs(x) : abs(y))
 #define MAX(x, y) (x > y ? x : y)
+#define AMAX(x, y) (abs(x) > abs(y) ? abs(x) : abs(y))
 
 typedef char     c8;
 typedef float    f32;
@@ -21,15 +21,15 @@ typedef struct {
   u16 height;
   f32 scale_x;
   f32 scale_y;
-
-  c8 title[30];
 } Canvas;
 
 typedef struct { u8 R; u8 G; u8 B; u8 A; } Color;
+typedef i16 iVec2[3];
 typedef f64 Point[2];
 
 static inline void canvas_color(Canvas canvas, Color color) { SDL_SetRenderDrawColor(canvas.renderer, color.R, color.G, color.B, color.A); }
 static inline void canvas_dot(Canvas canvas, Point point)   { SDL_RenderDrawPoint(canvas.renderer, point[0], point[1]); }
+static inline void canvas_title(Canvas canvas, c8 title[])  { SDL_SetWindowTitle(canvas.window, title); }
 static inline void canvas_display(Canvas canvas)            { SDL_RenderPresent(canvas.renderer); }
 static inline void canvas_clear(Canvas canvas)              { SDL_RenderClear(canvas.renderer); }
 static inline void canvas_delay(u16 ms)                     { SDL_Delay(ms); }
@@ -37,8 +37,14 @@ static inline void canvas_delay(u16 ms)                     { SDL_Delay(ms); }
 void canvas_init(Canvas* canvas) {
   SDL_CreateWindowAndRenderer(canvas->width * canvas->scale_x, canvas->height * canvas->scale_y, 0, &(canvas->window), &(canvas->renderer));
   SDL_RenderSetScale(canvas->renderer, canvas->scale_x, canvas->scale_y);
-  SDL_SetWindowTitle(canvas->window, canvas->title);
   SDL_Init(SDL_INIT_VIDEO);
+}
+
+void canvas_update(Canvas canvas, u16 delay) {
+  canvas_display(canvas);
+  canvas_color(canvas, (Color) {0, 0, 0, 255});
+  canvas_clear(canvas);
+  canvas_delay(delay);
 }
 
 void canvas_line(Canvas canvas, Point from, Point to) {
@@ -69,7 +75,7 @@ void canvas_triangle(Canvas canvas, Point v1, Point v2, Point v3) {
   canvas_line(canvas, v3, v1);
 }
 
-void canvas_fill_triangle(Canvas canvas, Point v1, Point v2, Point v3) {
+void canvas_fill_triangle_scanline(Canvas canvas, Point v1, Point v2, Point v3) {
   void swap(Point v1, Point v2) {
     Point temp;
     temp[0] = v1[0]; temp[1] = v1[1];
@@ -122,6 +128,7 @@ void canvas_fill_triangle(Canvas canvas, Point v1, Point v2, Point v3) {
 
   if (v1[1] == v2[1]) fill(v1, v2, v3, 1);
   else if (v2[1] == v3[1]) fill(v1, v2, v3, 0);
+  return;
   else {
     Point v4;
     v4[1] = v2[1];
